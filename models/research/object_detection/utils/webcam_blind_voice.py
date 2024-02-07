@@ -19,9 +19,9 @@ from torchvision import transforms as trn
 from torch.nn import functional as F
 import objc
 
-# import pyttsx3
-# # from .engine import Engine
-# engine =pyttsx3.init()
+import pyttsx3
+# from .engine import Engine
+engine =pyttsx3.init()
 
 # Initialize gTTS
 # language = 'en'
@@ -185,12 +185,12 @@ with detection_graph.as_default():
           probs, idx = h_x.sort(0, True)
         
           print('POSSIBLE SCENES ARE: ' + img_name)
-        #   engine.say("Possible Scene may be")
-        #   engine.say(img_name)
+          engine.say("Possible Scene may be")
+          engine.say(img_name)
           
         
           for i in range(0, 5):
-            #   engine.say(classes[idx[i]])
+              engine.say(classes[idx[i]])
               print('{}'.format(classes[idx[i]]))
       
        
@@ -235,8 +235,8 @@ with detection_graph.as_default():
       if cv2.waitKey(2) & 0xFF == ord('r'):
           text=pytesseract.image_to_string(image_np)
           print(text)
-        #   engine.say(text)
-        #   engine.runAndWait()
+          engine.say(text)
+          engine.runAndWait()
       
     
             
@@ -255,8 +255,8 @@ with detection_graph.as_default():
               if mid_x > 0.3 and mid_x < 0.7:
                 cv2.putText(image_np, 'WARNING!!!', (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0,0,255), 3)
                 print("Warning -Vehicles Approaching")
-                # engine.say("Warning -Vehicles Approaching")
-                # engine.runAndWait()
+                engine.say("Warning -Vehicles Approaching")
+                engine.runAndWait()
         
         if classes[0][i] ==44:
             if scores[0][i] >= 0.5:
@@ -265,17 +265,17 @@ with detection_graph.as_default():
                 apx_distance = round(((1 - (boxes[0][i][3] - boxes[0][i][1]))**4),1)
                 cv2.putText(image_np, '{}'.format(apx_distance), (int(mid_x*800),int(mid_y*450)), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)
                 print(apx_distance)
-                # engine.say(apx_distance)
-                # engine.say("units")
-                # engine.say("BOTTLE IS AT A SAFER DISTANCE")
+                engine.say(apx_distance)
+                engine.say("units")
+                engine.say("BOTTLE IS AT A SAFER DISTANCE")
                 
                 
                 if apx_distance <=0.5:
                     if mid_x > 0.3 and mid_x < 0.7:
                         cv2.putText(image_np, 'WARNING!!!', (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0,0,255), 3)
                         print("Warning -BOTTLE very close to the frame")
-                        # engine.say("Warning -BOTTLE very close to the frame")
-                        # engine.runAndWait()
+                        engine.say("Warning -BOTTLE very close to the frame")
+                        engine.runAndWait()
         if classes[0][i] ==1:
             if scores[0][i] >= 0.5:
                 mid_x = (boxes[0][i][1]+boxes[0][i][3])/2
@@ -283,17 +283,17 @@ with detection_graph.as_default():
                 apx_distance = round(((1 - (boxes[0][i][3] - boxes[0][i][1]))**4),1)
                 cv2.putText(image_np, '{}'.format(apx_distance), (int(mid_x*800),int(mid_y*450)), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)
                 print(apx_distance)
-                # engine.say(apx_distance)
-                # engine.say("units")
-                # engine.say("Person is AT A SAFER DISTANCE")
+                engine.say(apx_distance)
+                engine.say("units")
+                engine.say("Person is AT A SAFER DISTANCE")
                 
                 
                 if apx_distance <=0.5:
                     if mid_x > 0.3 and mid_x < 0.7:
                         cv2.putText(image_np, 'WARNING!!!', (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0,0,255), 3)
                         print("Warning -Person very close to the frame")
-                        # engine.say("Warning -Person very close to the frame")
-                        # engine.runAndWait()
+                        engine.say("Warning -Person very close to the frame")
+                        engine.runAndWait()
                     
                 
                 
